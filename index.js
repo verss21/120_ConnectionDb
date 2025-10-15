@@ -15,3 +15,11 @@ const db = mysql.createConnection({
     database: 'mahasiswa'
 });
 
+// Cek koneksi database
+db.connect((err) => {
+    if (err) {
+        console.log('Error connecting to MySQL: ' + err.stack);
+        return;
+    }
+    console.log('Connected to MySQL successfully');
+});
