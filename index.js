@@ -23,3 +23,23 @@ db.connect((err) => {
     }
     console.log('Connected to MySQL successfully');
 });
+
+// Route default
+app.get('/', (req, res) => {
+    res.send('Hello World! Express + MySQL is running.');
+});
+
+// ============================
+// GET: Ambil semua data biodata
+// ============================
+app.get('/biodata', (req, res) => {
+    const sql = 'SELECT * FROM biodata';
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            res.status(500).json({ error: 'Gagal mengambil data dari database' });
+        } else {
+            res.json(results);
+        }
+    });
+});
