@@ -5,3 +5,13 @@ const PORT = process.env.PORT || 3300;
 
 // Middleware biar bisa baca body JSON dari POST request
 app.use(express.json());
+
+// Koneksi ke MySQL
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    port: '3309', // sesuai punya kamu
+    password: 'Raehanarjun07.',
+    database: 'mahasiswa'
+});
+
