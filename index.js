@@ -43,3 +43,28 @@ app.get('/biodata', (req, res) => {
         }
     });
 });
+
+// ============================
+// POST: Tambah data biodata
+// ============================
+app.post('/biodata', (req, res) => {
+    const { nama, alamat, agama } = req.body;
+    if (!nama || !alamat || !agama) {
+        return res.status(400).json({ error: 'Semua field (nama, alamat, agama) wajib diisi' });
+    }
+
+    const sql = 'INSERT INTO biodata (nama, alamat, agama) VALUES (?, ?, ?)';
+    db.query(sql, [nama, alamat, agama], (err, result) => {
+        if (err) {
+            console.error('Error inserting data:', err);
+            res.status(500).json({ error: 'Gagal menambahkan data ke database' });
+        } else {
+            res.status(201).json({ message: 'Data berhasil ditambahkan', id: result.insertId });
+        }
+    });
+});
+
+// Jalankan server
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
